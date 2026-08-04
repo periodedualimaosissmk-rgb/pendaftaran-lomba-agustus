@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar Estafet Sarung — Lomba Agustusan SMKS Tunas Harapan Pasarkemis</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <div class="bunting" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap brand-row">
+      <a href="../index.html" class="brand">
+        <span class="brand-mark">17</span>
+        Lomba Agustusan
+      </a>
+      <span class="tanggal-badge">SMKS TUNAS HARAPAN PASARKEMIS</span>
+    </div>
+  </header>
+
+  <div class="form-page">
+    <a href="../index.html" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      Kembali ke semua lomba
+    </a>
+
+    <div class="form-card">
+      <div class="kop">
+        <svg class="icon-besar" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color:var(--putih)">
+          <path d="M8 30C8 14 20 10 20 20C20 30 32 26 32 10"/>
+          <circle cx="8" cy="30" r="2.4" fill="currentColor" stroke="none"/>
+          <circle cx="32" cy="10" r="2.4" fill="currentColor" stroke="none"/>
+        </svg>
+        <div class="eyebrow">Formulir Pendaftaran</div>
+        <h1>Estafet Sarung</h1>
+        <div class="meta">
+          <span>Tim · 5 orang</span>
+          <span>Tiket #SRG-xxxx</span>
+        </div>
+        <p class="cara-main">Setiap anggota tim memakai dan melepas sarung secara estafet dari ujung barisan ke ujung lainnya. Tim tercepat tanpa sarung terjatuh jadi pemenang.</p>
+      </div>
+
+      
+
+      <form class="pendaftaran" id="form-pendaftaran">
+        <div class="field">
+          <label for="nama-tim">Nama Tim</label>
+          <input type="text" id="nama-tim" required placeholder="Contoh: Sarung Tempur">
+        </div>
+
+        <div class="field">
+          <label for="kelas">Kelas</label>
+          <select id="kelas" required>
+            <option value="" disabled selected>Pilih kelas</option>
+            <optgroup label="Kelas X">
+              <option value="X TKR">X TKR</option>
+              <option value="X MP">X MP</option>
+              <option value="X TKJ">X TKJ</option>
+            </optgroup>
+            <optgroup label="Kelas XI">
+              <option value="XI TKR">XI TKR</option>
+              <option value="XI MP">XI MP</option>
+              <option value="XI TKJ">XI TKJ</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Nama Anggota Tim (5 orang)</label>
+          <div class="anggota-list" id="anggota-list">
+            <div class="anggota-item">
+              <span class="nomor">1</span>
+              <input type="text" required placeholder="Nama anggota 1" id="anggota-1" class="anggota-input">
+            </div>
+            <div class="anggota-item">
+              <span class="nomor">2</span>
+              <input type="text" required placeholder="Nama anggota 2" id="anggota-2" class="anggota-input">
+            </div>
+            <div class="anggota-item">
+              <span class="nomor">3</span>
+              <input type="text" required placeholder="Nama anggota 3" id="anggota-3" class="anggota-input">
+            </div>
+            <div class="anggota-item">
+              <span class="nomor">4</span>
+              <input type="text" required placeholder="Nama anggota 4" id="anggota-4" class="anggota-input">
+            </div>
+            <div class="anggota-item">
+              <span class="nomor">5</span>
+              <input type="text" required placeholder="Nama anggota 5" id="anggota-5" class="anggota-input">
+            </div>
+          </div>
+          <div id="peringatan-besar"></div>
+        </div>
+
+        <div class="field">
+          <label for="whatsapp">Nomor WhatsApp Penanggung Jawab</label>
+          <input type="tel" id="whatsapp" required placeholder="08xxxxxxxxxx">
+        </div>
+
+        <div class="form-msg" id="form-msg"></div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">Daftar Sekarang</button>
+      </form>
+
+      <div class="sukses" id="sukses">
+        <div class="stempel">
+          <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <h2>Pendaftaran Berhasil!</h2>
+        <p>Tim kamu sudah tercatat untuk Estafet Sarung. Sampai jumpa di lapangan!</p>
+        <span class="kode-tiket">Nomor tiket: <strong id="kode-tiket"></strong></span>
+        <br>
+        <a href="../index.html" class="kembali">← Daftar lomba lain</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">Panitia Lomba Agustusan SMKS Tunas Harapan Pasarkemis · Data pendaftar tersimpan otomatis ke Spreadsheet panitia</div>
+  </footer>
+
+  <script src="../config.js"></script>
+  <script>
+    window.LOMBA = {
+      namaSheet: "Estafet Sarung",
+      jumlahPeserta: 5,
+      kodePrefix: "SRG",
+      tandaiBerbadanBesar: false,
+      maksBerbadanBesar: null
+    };
+  </script>
+  <script src="../script.js"></script>
+</body>
+</html>
