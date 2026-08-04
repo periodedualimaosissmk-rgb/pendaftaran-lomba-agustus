@@ -195,31 +195,26 @@
       Panitia Lomba Agustusan SMKS Tunas Harapan Pasarkemis · Data pendaftar tersimpan otomatis ke Spreadsheet panitia
     </div>
   </footer>
- <script>
+<script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Ambil semua elemen tiket lomba
       const semuaTiket = document.querySelectorAll('.tiket');
 
       semuaTiket.forEach(tiket => {
         tiket.addEventListener('click', function(e) {
-          // 1. Hentikan pengunjung pindah halaman langsung
           e.preventDefault();
           
-          // 2. Ambil tujuan URL dari atribut href
           const tujuanUrl = this.getAttribute('href');
           
-          // 3. Tambahkan class 'tearing' untuk memicu animasi CSS
+          // Memicu animasi
           this.classList.add('tearing');
           
-          // 4. Arahkan ke halaman pendaftaran setelah 1.2 detik (sesuai durasi animasi)
+          // Durasi 1100ms (1.1 detik), pas saat tiket kanan sudah menghilang (opacity 0)
           setTimeout(() => {
             window.location.href = tujuanUrl;
-          }, 1200); 
+          }, 1100); 
         });
       });
     });
   </script>
-</body>
-</html>
 </body>
 </html>
