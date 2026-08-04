@@ -582,68 +582,59 @@ form.pendaftaran{
   text-decoration: underline;
 }
 /* =========================================================
-   ANIMASI SOBEK TIKET
+   ANIMASI SOBEK TIKET (REVISI)
    ========================================================= */
 
 .tiket.tearing {
-  /* Hilangkan border dan background tiket utama saat disobek */
+  /* Hilangkan warna dasar dan border pembungkus agar bisa pecah */
   background: transparent !important;
   border-color: transparent !important;
   box-shadow: none !important;
+  
+  /* Penting: Izinkan keluar dari kotak & naikkan posisi agar menimpa tiket lain */
+  overflow: visible !important;
+  position: relative;
+  z-index: 999;
+  
   transform: none !important;
-  pointer-events: none; /* Mencegah diklik dua kali */
+  pointer-events: none; /* Cegah klik ganda */
 }
 
-/* Mengakali background dan border yang hilang dari tiket utama */
+/* Bagian Kiri (Merah): Diam di tempat. 
+   Kita pakai trik box-shadow agar ukurannya tidak lompat/bergeser */
 .tiket.tearing .stub {
-  border: 2px solid var(--tinta);
-  border-right: 1px dashed var(--tinta);
-  border-radius: var(--radius) 0 0 var(--radius);
-  animation: tear-left 1.2s forwards ease-in;
-  transform-origin: bottom right;
+  box-shadow: -2px 0 0 var(--tinta), 0 -2px 0 var(--tinta), 0 2px 0 var(--tinta);
+  border-radius: calc(var(--radius) - 2px) 0 0 calc(var(--radius) - 2px);
 }
 
+/* Bagian Kanan (Putih): Animasi lepas & terbang */
 .tiket.tearing .info {
   background: var(--putih);
-  border: 2px solid var(--tinta);
-  border-left: 1px dashed var(--tinta);
-  border-radius: 0 var(--radius) var(--radius) 0;
-  animation: tear-right 1.2s forwards ease-in;
-  transform-origin: top left;
+  box-shadow: 2px 0 0 var(--tinta), 0 -2px 0 var(--tinta), 0 2px 0 var(--tinta);
+  border-radius: 0 calc(var(--radius) - 2px) calc(var(--radius) - 2px) 0;
+  
+  animation: fly-away 1.1s forwards ease-in-out;
+  transform-origin: left center;
 }
 
-/* Sembunyikan perforasi asli saat sobekan terjadi */
+/* Sembunyikan garis putus-putus, biarkan robekan terlihat bersih tanpa border */
 .tiket.tearing .perforasi {
   opacity: 0;
-  transition: opacity 0.1s;
 }
 
-/* Keyframes untuk bagian kiri (stub merah) */
-@keyframes tear-left {
+/* Keyframes: Terbang, menimpa tiket lain, lalu menghilang */
+@keyframes fly-away {
   0% {
     transform: translate(0, 0) rotate(0);
     opacity: 1;
   }
-  20% {
-    transform: translate(-2px, 5px) rotate(-2deg);
-  }
-  100% {
-    transform: translate(-30px, 40px) rotate(-15deg);
-    opacity: 0;
-  }
-}
-
-/* Keyframes untuk bagian kanan (info putih) */
-@keyframes tear-right {
-  0% {
-    transform: translate(0, 0) rotate(0);
+  15% {
+    transform: translate(8px, -4px) rotate(3deg);
     opacity: 1;
   }
-  20% {
-    transform: translate(2px, -5px) rotate(2deg);
-  }
   100% {
-    transform: translate(30px, -40px) rotate(15deg);
-    opacity: 0;
+    /* Geser jauh melewati tiket di sebelahnya */
+    transform: translate(140px, -40px) rotate(15deg) scale(1.05);
+    opacity: 0; /* Menghilang sebelum pindah halaman */
   }
 }
