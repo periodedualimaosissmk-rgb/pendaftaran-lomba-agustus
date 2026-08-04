@@ -581,3 +581,69 @@ form.pendaftaran{
   color: var(--merah-tua);
   text-decoration: underline;
 }
+/* =========================================================
+   ANIMASI SOBEK TIKET
+   ========================================================= */
+
+.tiket.tearing {
+  /* Hilangkan border dan background tiket utama saat disobek */
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  pointer-events: none; /* Mencegah diklik dua kali */
+}
+
+/* Mengakali background dan border yang hilang dari tiket utama */
+.tiket.tearing .stub {
+  border: 2px solid var(--tinta);
+  border-right: 1px dashed var(--tinta);
+  border-radius: var(--radius) 0 0 var(--radius);
+  animation: tear-left 1.2s forwards ease-in;
+  transform-origin: bottom right;
+}
+
+.tiket.tearing .info {
+  background: var(--putih);
+  border: 2px solid var(--tinta);
+  border-left: 1px dashed var(--tinta);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  animation: tear-right 1.2s forwards ease-in;
+  transform-origin: top left;
+}
+
+/* Sembunyikan perforasi asli saat sobekan terjadi */
+.tiket.tearing .perforasi {
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+/* Keyframes untuk bagian kiri (stub merah) */
+@keyframes tear-left {
+  0% {
+    transform: translate(0, 0) rotate(0);
+    opacity: 1;
+  }
+  20% {
+    transform: translate(-2px, 5px) rotate(-2deg);
+  }
+  100% {
+    transform: translate(-30px, 40px) rotate(-15deg);
+    opacity: 0;
+  }
+}
+
+/* Keyframes untuk bagian kanan (info putih) */
+@keyframes tear-right {
+  0% {
+    transform: translate(0, 0) rotate(0);
+    opacity: 1;
+  }
+  20% {
+    transform: translate(2px, -5px) rotate(2deg);
+  }
+  100% {
+    transform: translate(30px, -40px) rotate(15deg);
+    opacity: 0;
+  }
+}
