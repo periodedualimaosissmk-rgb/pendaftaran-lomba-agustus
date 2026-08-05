@@ -350,7 +350,7 @@ img, svg{ display:block; max-width:100%; }
 }
 .tiket-featured .perforasi-emas::before,
 .tiket-featured .perforasi-emas::after{
-  background: var(--krem);
+  display: none;
 }
 .tiket-featured .info-featured{
   padding: 22px 26px;
