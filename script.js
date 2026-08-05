@@ -9,29 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const cfg = window.LOMBA;
   if (!cfg) return;
 
-  const anggotaList = document.getElementById('anggota-list');
-  const maxBesarWarn = document.getElementById('peringatan-besar');
   const form = document.getElementById('form-pendaftaran');
   const submitBtn = document.getElementById('submit-btn');
   const formMsg = document.getElementById('form-msg');
   const suksesBox = document.getElementById('sukses');
   const kodeTiketEl = document.getElementById('kode-tiket');
-
-  // ---- batasi jumlah "berbadan besar" (khusus tarik tambang) ----
-  if (cfg.tandaiBerbadanBesar && anggotaList) {
-    const checkboxes = () => Array.from(document.querySelectorAll('.besar-checkbox'));
-    anggotaList.addEventListener('change', (e) => {
-      if (!e.target.classList.contains('besar-checkbox')) return;
-      const checked = checkboxes().filter(c => c.checked);
-      if (checked.length > (cfg.maksBerbadanBesar || 2)) {
-        e.target.checked = false;
-        maxBesarWarn.textContent = `Maksimal ${cfg.maksBerbadanBesar || 2} orang berbadan besar per tim ya.`;
-        maxBesarWarn.classList.add('show');
-      } else {
-        maxBesarWarn.classList.remove('show');
-      }
-    });
-  }
 
   // ---- submit ----
   form.addEventListener('submit', async (e) => {
