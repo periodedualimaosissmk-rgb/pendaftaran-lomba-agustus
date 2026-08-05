@@ -371,7 +371,7 @@ img, svg{ display:block; max-width:100%; }
 .pita-solo{
   position:absolute;
   top: -12px;
-  left: 20px;
+  left: 18px;
   background: var(--tinta);
   color: var(--krem);
   font-family: var(--font-mono);
