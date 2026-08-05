@@ -368,17 +368,20 @@ img, svg{ display:block; max-width:100%; }
   font-size: .85rem;
   margin-top: 4px;
 }
-.pita-solo{
-  position:absolute;
-  top: -12px;
-  left: 18px;
+.pita-solo {
+  position: absolute;
+  top: -3px;
+  left: 0px;
   background: var(--tinta);
   color: var(--krem);
   font-family: var(--font-mono);
   font-size: .72rem;
-  font-weight:700;
+  font-weight: 700;
   padding: 5px 12px;
-  border-radius: 999px;
+  
+  /* Ini kuncinya: 0 (kiri atas) 0 (kanan atas) 0 (kanan bawah) 999px (kiri bawah) */
+  border-radius: 0 0 999 999px; 
+  
   border: 2px solid var(--tinta);
   z-index: 2;
 }
