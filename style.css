@@ -382,19 +382,23 @@ img, svg{ display:block; max-width:100%; }
 
 .pita-fitur {
   position: absolute;
-  top: -2.5px; 
-  left: -2.5px; 
+  top: 0;
+  left: 0;
   color: var(--krem);
   font-family: var(--font-mono);
   font-size: .72rem;
   font-weight: 700;
   padding: 6px 14px 6px 12px;
   
-  /* Kiri atas dan kanan bawah melengkung */
-  border-radius: var(--radius) 0 var(--radius) 0;
+  /* Kiri-atas biarkan 0 karena otomatis dipotong melengkung oleh kartu. Kita cuma lengkungkan ujung kanan-bawah. */
+  border-radius: 0 0 var(--radius) 0;
   
-  /* Border disamakan tebalnya dengan kartu */
-  border: 2.5px solid var(--tinta);
+  /* Hapus semua border dulu... */
+  border: none;
+  /* ...lalu tambahkan hanya di sisi kanan dan bawah, samakan tebalnya dengan kartu (2.5px) */
+  border-right: 2.5px solid var(--tinta);
+  border-bottom: 2.5px solid var(--tinta);
+  
   z-index: 2;
 }
 
