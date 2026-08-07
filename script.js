@@ -2,7 +2,10 @@
    LOMBA AGUSTUSAN — logika form pendaftaran (dipakai semua
    halaman lomba, konfigurasi per-halaman lewat window.LOMBA)
    Kotak input anggota sudah statis langsung di HTML — script
-   ini hanya menangani validasi "berbadan besar" dan submit.
+   ini menangani validasi & submit, termasuk field opsional
+   "cadangan", "tema", dan "sound" (link atau upload file) kalau
+   field tsb ada di halaman (dideteksi otomatis, tidak wajib ada
+   di semua lomba).
    ========================================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,6 +17,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const formMsg = document.getElementById('form-msg');
   const suksesBox = document.getElementById('sukses');
   const kodeTiketEl = document.getElementById('kode-tiket');
+
+  const elCadangan = document.getElementById('cadangan');
+  const elTema = document.getElementById('tema');
+  const elSoundLink = document.getElementById('sound-link');
+  const elSoundFile = document.getElementById('sound-file');
+
+  const MAKS_UKURAN_SOUND = 8 * 1024 * 1024; // 8MB
+
+  // ---- baca file jadi base64 (dipakai utk file sound, tanpa kompresi) ----
+  function bacaFileBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error('Gagal membaca file'));
+      reader.onload = () => resolve(reader.result);
+      reader.readAsDataURL(file);
+    });
+  }
 
   // ---- submit ----
   form.addEventListener('submit', async (e) => {
@@ -32,6 +52,44 @@ document.addEventListener('DOMContentLoaded', () => {
       whatsapp,
       anggota,
     };
+
+    if (elCadangan) payload.cadangan = elCadangan.value.trim();
+    if (elTema) payload.tema = elTema.value.trim();
+
+    // ---- validasi & siapkan field sound (kalau halaman ini punya) ----
+    if (elSoundLink || elSoundFile) {
+      const linkIsi = elSoundLink ? elSoundLink.value.trim() : '';
+      const fileTerpilih = elSoundFile && elSoundFile.files && elSoundFile.files[0];
+
+      if (!linkIsi && !fileTerpilih) {
+        formMsg.textContent = 'Isi salah satu: link sound atau upload file sound.';
+        formMsg.classList.add('show', 'error');
+        return;
+      }
+      if (fileTerpilih && fileTerpilih.size > MAKS_UKURAN_SOUND) {
+        formMsg.textContent = 'Ukuran file sound terlalu besar (maks 8MB). Pakai link saja, atau kompres filenya.';
+        formMsg.classList.add('show', 'error');
+        return;
+      }
+
+      if (fileTerpilih) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Memproses file...';
+        try {
+          payload.soundBase64 = await bacaFileBase64(fileTerpilih);
+          payload.soundMime = fileTerpilih.type || 'audio/mpeg';
+          payload.soundNama = fileTerpilih.name;
+        } catch (err) {
+          formMsg.textContent = 'Gagal memproses file sound: ' + err.message;
+          formMsg.classList.add('show', 'error');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Daftar Sekarang';
+          return;
+        }
+      } else {
+        payload.soundLink = linkIsi;
+      }
+    }
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Mengirim...';
