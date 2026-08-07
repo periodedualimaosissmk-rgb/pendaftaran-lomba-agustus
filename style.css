@@ -24,6 +24,7 @@
   --emas: #E8A33D;
   --emas-tua: #B87A1C;
   --hijau: #2F6B4F;
+  --hijau-tua: #1E4835;
   --tinta: #241C15;
   --tinta-soft: #241C15cc;
   --garis: #241C1524;
@@ -324,7 +325,7 @@ img, svg{ display:block; max-width:100%; }
   .grid-lomba{ grid-template-columns: 1fr; }
 }
 
-/* -------------------- Tiket Featured (Lomba Perorangan) -------------------- */
+/* -------------------- Tiket Featured (Lomba Perorangan / Berpasangan) -------------------- */
 
 .tiket-featured{
   display:flex;
@@ -341,6 +342,10 @@ img, svg{ display:block; max-width:100%; }
   flex: 0 0 168px;
   background: linear-gradient(155deg, var(--emas), var(--emas-tua));
 }
+.tiket-featured .stub-hijau{
+  flex: 0 0 168px;
+  background: linear-gradient(155deg, var(--hijau), var(--hijau-tua));
+}
 .tiket-featured .icon-lg{
   width: 58px; height: 58px;
 }
@@ -348,8 +353,14 @@ img, svg{ display:block; max-width:100%; }
   font-size: .92rem;
   color: var(--tinta);
 }
+.tiket-featured .jumlah-hijau{
+  font-size: .92rem;
+  color: var(--putih);
+}
 .tiket-featured .perforasi-emas::before,
-.tiket-featured .perforasi-emas::after{
+.tiket-featured .perforasi-emas::after,
+.tiket-featured .perforasi-hijau::before,
+.tiket-featured .perforasi-hijau::after{
   display: none;
 }
 .tiket-featured .info-featured{
@@ -368,40 +379,31 @@ img, svg{ display:block; max-width:100%; }
   font-size: .85rem;
   margin-top: 4px;
 }
-.pita-solo {
+
+/* pita generik dipakai kartu featured mana pun (solo, berpasangan, dst) */
+.pita-fitur{
   position: absolute;
-  top: -3px;
-  left: 0px;
-  background: var(--tinta);
+  top: 0;
+  left: 0;
   color: var(--krem);
   font-family: var(--font-mono);
   font-size: .72rem;
   font-weight: 700;
-  padding: 5px 12px;
-  
-  /* Ini kuncinya: 0 (kiri atas) 0 (kanan atas) 0 (kanan bawah) 999px (kiri bawah) */
-  border-radius: 0 0 999 999px; 
-  
+  padding: 6px 14px 6px 12px;
+  /* kiri-atas & kanan-atas ikut lengkung kartu, kanan-bawah melengkung besar, kiri-bawah lurus menyatu ke tepi */
+  border-radius: 0 var(--radius) 999px 0;
   border: 2px solid var(--tinta);
+  border-left: none;
+  border-top: none;
   z-index: 2;
 }
+.pita-fitur.pita-emas{ background: var(--tinta); }
+.pita-fitur.pita-hijau{ background: var(--hijau-tua); }
 
 @media (max-width: 640px){
   .tiket-featured{ flex-direction: column; }
-  .tiket-featured .stub-emas{ flex-basis: auto; flex-direction: row; padding: 16px; }
-  .tiket-featured .perforasi-emas{
-    border-left: none;
-    border-top: 2px dashed var(--tinta);
-    width: 100%;
-    height: 0;
-  }
-  .tiket-featured .perforasi-emas::before,
-  .tiket-featured .perforasi-emas::after{
-    left: 50%;
-    top: -9px;
-    transform: translateX(-50%);
-  }
-  .tiket-featured .perforasi-emas::after{ left: auto; right: -9px; top:-9px; transform:none; }
+  .tiket-featured .stub-emas,
+  .tiket-featured .stub-hijau{ flex-basis: auto; flex-direction: row; padding: 16px; }
 }
 
 /* -------------------- Footer -------------------- */
@@ -454,6 +456,7 @@ img, svg{ display:block; max-width:100%; }
   padding: 26px 26px 22px;
   position: relative;
 }
+.form-card .kop.kop-hijau{ background: var(--hijau); }
 .form-card .kop .icon-besar{
   width: 52px; height: 52px;
   margin-bottom: 10px;
@@ -527,6 +530,7 @@ form.pendaftaran{
 }
 .field input[type="text"],
 .field input[type="tel"],
+.field input[type="url"],
 .field select{
   width: 100%;
   padding: 11px 13px;
@@ -536,6 +540,15 @@ form.pendaftaran{
   font-size: .92rem;
   background: var(--krem);
   color: var(--tinta);
+}
+.field input[type="file"]{
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: .84rem;
+  padding: 9px 4px;
+  background: var(--krem);
+  border: 1.5px dashed var(--garis);
+  border-radius: 10px;
 }
 .field select{
   appearance: none;
@@ -551,6 +564,22 @@ form.pendaftaran{
   outline: none;
   border-color: var(--merah);
   box-shadow: 0 0 0 3px #CE112626;
+}
+
+.atau-pemisah{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  color: var(--tinta-soft);
+  margin: 4px 0;
+}
+.atau-pemisah::before, .atau-pemisah::after{
+  content:"";
+  flex:1;
+  height: 1px;
+  background: var(--garis);
 }
 
 .anggota-list{
