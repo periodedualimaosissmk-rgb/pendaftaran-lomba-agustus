@@ -389,9 +389,9 @@ img, svg{ display:block; max-width:100%; }
   font-family: var(--font-mono);
   font-size: .72rem;
   font-weight: 700;
-  padding: 6px 14px 12px 12px;
+  padding: 6px 14px 6px 12px;
   /* kiri-atas & kanan-atas ikut lengkung kartu, kanan-bawah melengkung besar, kiri-bawah lurus menyatu ke tepi */
-  border-radius: 0 var(--radius) 999px 0;
+  border-radius: 0 var(--radius) 0 0;
   border: 2px solid var(--tinta);
   border-left: none;
   border-top: none;
