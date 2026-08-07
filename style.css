@@ -383,20 +383,24 @@ img, svg{ display:block; max-width:100%; }
 /* pita generik dipakai kartu featured mana pun (solo, berpasangan, dst) */
 .pita-fitur{
   position: absolute;
-  top: 0;
-  left: 0;
+  /* Geser posisinya ke luar sejauh tebal border kartu (2.5px) agar pas menutupi sudut */
+  top: -2.5px;
+  left: -2.5px;
+  
   color: var(--krem);
   font-family: var(--font-mono);
   font-size: .72rem;
   font-weight: 700;
   padding: 6px 14px 6px 12px;
-  /* kiri-atas & kanan-atas ikut lengkung kartu, kanan-bawah melengkung besar, kiri-bawah lurus menyatu ke tepi */
-  border-radius: 0 var(--radius) 0 0;
-  border: 2px solid var(--tinta);
-  border-left: none;
-  border-top: none;
+  
+  /* Ubah urutan lengkungnya: Kiri-Atas (ngikut kartu), Kanan-Atas (lurus), Kanan-Bawah (lengkung), Kiri-Bawah (lurus) */
+  border-radius: var(--radius) 0 var(--radius) 0;
+  
+  /* Kembalikan border utuh dan samakan tebalnya dengan border kartu featured */
+  border: 2.5px solid var(--tinta);
   z-index: 2;
 }
+
 .pita-fitur.pita-emas{ background: var(--tinta); }
 .pita-fitur.pita-hijau{ background: var(--hijau-tua); }
 
